@@ -1,0 +1,10 @@
+The solution is pretty simple. Just create a text file named 20-intel.conf in the /etc/X11/xorg.conf.d/ directory path (you may have to create directory xorg.conf.d if it does not exist) and paste the following in it:
+
+Section "Device"
+  Identifier "Intel Graphics"
+  Driver "intel"
+EndSection
+
+Now save the file and reboot your Debian Xfce system.
+
+Screen black problem after locking the screen in Xfce should be solved by now.
