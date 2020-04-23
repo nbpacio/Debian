@@ -1,0 +1,17 @@
+Reinstall grub-efi
+
+Download and Install grub-efi package, set the debian bootloader and create a grub config file based on your disk partitioning schema
+
+    Install grub-efi package
+
+# apt-get install --reinstall grub-efi
+
+    Put the debian bootloader in /boot/efi and create an appropiate entry in the computer’s UEFI Boot Manager
+
+# grub-install /dev/sda
+
+    Re create a grub config file based on your disk partitioning schema
+
+# update-grub
+
+reboot
