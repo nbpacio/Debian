@@ -1,0 +1,7 @@
+download firmware
+https://packages.debian.org/stable/firmware-iwlwifi
+
+install
+dpkg -i firmware-iwlwifi*.deb
+
+restart
