@@ -1,17 +1,36 @@
-Reinstall grub-efi
+Reinstalling grub-efi on your hard drive
 
-Download and Install grub-efi package, set the debian bootloader and create a grub config file based on your disk partitioning schema
+Check that the computer booted in computer in EFI mode:
 
-    Install grub-efi package
+[ -d /sys/firmware/efi ] && echo "EFI boot on HDD" || echo "Legacy boot on HDD"
+should return "EFI boot on HDD".
 
-# apt-get install --reinstall grub-efi
+After starting a root shell ( if you boot from a live media, you should start a chroot shell instead, as explained in https://help.ubuntu.com/community/Grub2/Installing#via_ChRoot ) check that your EFI system partition (most probably /dev/sda1) is mounted on /boot/efi. If the /boot/efi directory does not exist, you will need to create it.
 
-    Put the debian bootloader in /boot/efi and create an appropiate entry in the computer’s UEFI Boot Manager
+mount /dev/sda1 /boot/efi
 
-# grub-install /dev/sda
+Reinstall the grub-efi package
 
-    Re create a grub config file based on your disk partitioning schema
+apt-get install --reinstall grub-efi
 
-# update-grub
+Put the debian bootloader in /boot/efi and create an appropriate entry in the computer NVRAM
 
-reboot
+grub-install /dev/sda
+
+Re create a grub config file based on your disk partitioning schema
+
+update-grub
+
+You should check afterwards that:
+
+Check 1. the bootloader is existing in /boot/efi/EFI/debian/grubx64.efi
+
+file /boot/efi/EFI/debian/grubx64.efi
+
+/boot/efi/EFI/debian/grubx64.efi: PE32+ executable (EFI application) x86-64 (stripped to external PDB), for MS Windows
+
+Check 2. the nvram entry was properly created.
+
+efibootmgr --verbose | grep debian
+
+You can now reboot, and Grub should greet you. 
