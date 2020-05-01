@@ -1,0 +1,64 @@
+What is swap? When is swap used?
+
+Your system uses Random Access Memory (aka RAM) when it runs an application. When there are only a few applications running your system manages with the available RAM.
+
+But if there are too many applications running or if the applications need a lot of RAM, then your system gets into trouble. If an application needs more memory but entire RAM is already in use, the application will crash.
+
+Swap acts as a breather to your system when the RAM is exhausted. What happens here is that when the RAM is exhausted, your Linux system uses part of the hard disk memory and allocates it to the running application.
+
+
+METHOD 1: Command-line Way from Terminal (Fastest way!)
+
+STEP 1: First step is to check if by chance is there any SWAP partition already created in your PC. Use the see ‘swapon’ command:
+
+sudo swapon --show
+
+Enter your root password. If you see no output, it means that the SWAP doesn’t exist.
+
+STEP 2: Next, let’s see the current partition structure of your computer’s hard disk. Use the ‘df’ command:
+
+df -h
+
+You should see the partition structure like the one I got in my test PC.
+Terminal - Showing Current Partitions
+Terminal – Showing Current Partitions
+
+STEP 3: Now it’s time to create the SWAP file. Make sure you have enough hard disk space. It’s a matter of preference on how much SWAP size you need.
+
+Typically, it is good to have twice as much as your RAM for the SWAP size. But you can even go ahead with exactly as much as your RAM – your choice.
+
+In this example, I choose to go with twice that of RAM. I have my test PC with 2 GB memory. So, I will set 4 GB as SWAP. Run the following command. Use your number instead of 4:
+Terminal Showing all Steps (Sorry about a typo command!)
+Terminal Showing all Steps (Sorry about a typo command!)
+
+sudo fallocate -l 4G /swapfile
+
+STEP 4: SWAP file is created. Let’s give root-only permissions to it.
+
+sudo chmod 600 /swapfile
+
+STEP 5: Mark the file as SWAP space:
+
+sudo mkswap /swapfile
+
+STEP 6: Finally enable the SWAP.
+
+sudo swapon /swapfile
+
+STEP 7: You can now check using the same swapon command to check if SWAP is created.
+
+sudo swapon --show
+
+STEP 8: Also recheck the final partition structure.
+
+free -h
+
+STEP 9: Once everything is set, you must set the SWAP file as permanent, else you will lose the SWAP after reboot. Run this command:
+
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+That’s it! Exit the terminal.
+
+You can launch the ‘System Monitor’ utility and check SWAP status. It should be enabled!
+System Monitor -Resources shows SWAP usage
+System Monitor -Resources shows SWAP usage
