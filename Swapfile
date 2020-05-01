@@ -6,6 +6,9 @@ But if there are too many applications running or if the applications need a lot
 
 Swap acts as a breather to your system when the RAM is exhausted. What happens here is that when the RAM is exhausted, your Linux system uses part of the hard disk memory and allocates it to the running application.
 
+< 2GB = 2xRAM
+2-8GB = RAM
+> 8GB = 8GB
 
 METHOD 1: Command-line Way from Terminal (Fastest way!)
 
