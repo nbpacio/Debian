@@ -6,9 +6,10 @@ But if there are too many applications running or if the applications need a lot
 
 Swap acts as a breather to your system when the RAM is exhausted. What happens here is that when the RAM is exhausted, your Linux system uses part of the hard disk memory and allocates it to the running application.
 
-< 2GB = 2xRAM
-2-8GB = RAM
-> 8GB = 8GB
+<1GB  = 2xRAM
+< 2-4GB = 2-4GB
+8GB = 4GB
+> 8GB = 2-4GB
 
 METHOD 1: Command-line Way from Terminal (Fastest way!)
 
@@ -65,3 +66,29 @@ That’s it! Exit the terminal.
 You can launch the ‘System Monitor’ utility and check SWAP status. It should be enabled!
 System Monitor -Resources shows SWAP usage
 System Monitor -Resources shows SWAP usage
+
+
+
+CREATE:
+
+sudo swapon --show
+sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo free -h
+sudo nano /etc/fstab
+/swapfile swap swap defaults 0 0  <---- make permanent
+
+
+DELETE:
+
+sudo swapoff -v /swapfile
+sudo rm /swapfile
+
+SWAPPINESS:
+
+cat /proc/sys/vm/swappiness
+sudo nano /etc/sysctl.conf
+vm.swappiness=10
+To exit from Nano text editor, save and close it with Ctrl+O and Ctrl+X keys shortcuts.
