@@ -1,0 +1,19 @@
+How to upgrade the Debian 10 kernel from backports without recompiling it from scratch
+
+1. enable backports:
+
+echo deb http://deb.debian.org/debian buster-backports main contrib non-free | sudo tee /etc/apt/sources.list.d/buster-backports.list
+
+2. install the backported kernel:
+
+sudo apt install -t buster-backports linux-image-amd64
+(the new kernel will be installed alongside your current kernel, so you can always boot the latter if things go wrong)
+
+3. Update Repo:
+sudo apt update
+
+4. install the firmware:
+
+sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
+
+5. Reboot
