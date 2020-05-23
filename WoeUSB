@@ -1,0 +1,45 @@
+WoeUSB
+- burn windows iso to usb from Linux:
+
+Build from Source:
+
+The following are the instructions to install WoeUSB if prebuilt version is not available or too old.
+Acquire WoeUSB's Source Code
+
+Clone WoeUSB's Git repository to your local machine using git clone https://github.com/slacka/WoeUSB.git
+
+NOTE: We no longer support building from source archives provided in the GitHub Releases page as the software version is not set.
+Setting the Application Version String
+
+This step is required for generating the proper version name based on the Git tags. This step should be repeated if the version is changed.
+
+$ ./setup-development-environment.bash
+
+Install WoeUSB's Build Dependencies
+
+# For Debian-based distributions (NOTE: For your convenience, this package is already provided in the release page)
+$ sudo apt-get install devscripts equivs gdebi-core
+$ cd <WoeUSB source tree directory, the folder that contains the `src` folder>
+$ mk-build-deps # NOTE: Currently, due to Debian Bug #679101, this command will fail if the source path contains spaces.
+$ sudo gdebi woeusb-build-deps_<version>_all.deb
+
+# For Fedora > 22
+$ sudo dnf install wxGTK3-devel
+
+# For Fedora 22
+$ sudo dnf install wxGTK-devel dh-autoreconf.noarch
+
+# For Opensuse
+$ sudo zypper in wxGTK3-3_2-devel dh-autoreconf devscripts
+
+Build & Install WoeUSB
+
+# For Debian-based distributions
+$ dpkg-buildpackage -uc -b # NOTE: Currently, due to a bug in the build system, this command will fail if the source's path contains space or single quotes, refer to issue #84 for details
+$ sudo gdebi ../woeusb_<version>_<architecture>.deb
+
+# Generic method
+$ autoreconf --force --install # Most non-Debian derived distros will need this
+$ ./configure
+$ make
+$ sudo make install
