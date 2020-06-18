@@ -1,4 +1,4 @@
-How to upgrade the Debian 10 kernel from backports without recompiling it from scratch
+A. How to upgrade the Debian 10 kernel from backports without recompiling it from scratch
 
 1. enable backports:
 
@@ -17,3 +17,63 @@ sudo apt update
 sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
 
 5. Reboot
+
+
+B. How to upgrade kernel from source:
+
+
+https://linuxhint.com/how-to-upgrade-kernel-of-debian-9-stretch-from-source/
+
+
+1. Check installed version:
+
+  $ uname -r
+
+2. Download latest kernel from https://www.kernel.org or debian source:
+
+3. Install required tools:
+
+  $ sudo apt-get update
+  
+  $ sudo apt-get install build-essential libncurses5-dev gcc libssl-dev bc
+  
+4. Compiling Kernel:
+
+  $ cd ~/Downloads
+  
+  $ tar xvf linux-4.14.7.tar.xz
+  
+  $ cd linux-4.14.7
+  
+5. Copy boot configuration:
+
+  $ cp -v /boot/config-4.9.0-3-amd64 .config  <--- current kernel version number
+  
+6. The new kernel may have a lot of new features that the old kernel didn’t have. 
+  So it’s a good idea to run the following command to convert the old configuration file to a new one. 
+  Otherwise we will be asked a lot of questions that might not make sense to you.
+  
+  $ make menuconfig
+  
+7. Now run the following command to start the kernel compilation process:
+
+  $ make deb-pkg
+  
+  The compilation process takes a very long time to finish.
+  
+8. Now all we have to do to update the kernel is to install all the generated .deb files.
+
+  Run the following command to update the kernel:
+
+  $ sudo dpkg -i ../linux-*.deb
+  
+9. Now restart your computer with the following command:
+
+  $ sudo reboot
+  
+10. Once the computer boots, run the following command to check the kernel version:
+
+  $ uname -r
+  
+11. Note, if you have more than one kernel installed, you can arrange them by using grub-customizer app.
+
