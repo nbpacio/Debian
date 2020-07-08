@@ -12,7 +12,7 @@ sudo apt install -t buster-backports linux-image-amd64
 3. Update Repo:
 sudo apt update
 
-4. install the firmware:
+4. install the firmware:  
 
 sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
 
@@ -60,6 +60,10 @@ https://linuxhint.com/how-to-upgrade-kernel-of-debian-9-stretch-from-source/
   $ make deb-pkg
   
   The compilation process takes a very long time to finish.
+  
+  NOTE:
+  Attempting to compile kernel yields a certification error:
+  https://unix.stackexchange.com/questions/293642/attempting-to-compile-kernel-yields-a-certification-error
   
 8. Now all we have to do to update the kernel is to install all the generated .deb files.
 
