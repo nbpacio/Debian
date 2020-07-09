@@ -35,7 +35,7 @@ https://linuxhint.com/how-to-upgrade-kernel-of-debian-9-stretch-from-source/
 
   $ sudo apt-get update
   
-  $ sudo apt-get install build-essential libncurses5-dev gcc libssl-dev bc bison flex
+  $ sudo apt-get install build-essential libncurses5-dev gcc libssl-dev bc bison flex rsync
   
 4. Compiling Kernel:
 
